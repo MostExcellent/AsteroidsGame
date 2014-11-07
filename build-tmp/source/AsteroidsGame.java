@@ -1,10 +1,25 @@
-SpaceShip spaceship = new SpaceShip();
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class AsteroidsGame extends PApplet {
+
+//your variable declarations here
 public void setup() {
-  size(500, 500);
+  //your code here
 }
 public void draw() {
-  spaceship.move();
-  spaceship.show();
+  //your code here
 }
 class SpaceShip extends Floater {
   public SpaceShip() {
@@ -13,7 +28,7 @@ class SpaceShip extends Floater {
     xCorners[1] = -3; yCorners[1] = -2;
     xCorners[2] = -1; yCorners[2] = 0;
     xCorners[3] = -3; yCorners[3] = 2;
-    myColor = color(255);
+    myColor;
     myCenterX = 250;
     myCenterY = 250;
     myDirectionX = 0;
@@ -66,7 +81,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   protected int corners; //the number of corners, a triangular floater has 3   
   protected int[] xCorners;
   protected int[] yCorners;
-  protected color myColor;
+  protected int myColor;
   protected double myCenterX, myCenterY; //holds center coordinates   
   protected double myDirectionX, myDirectionY; //holds x and y coordinates of the vector for direction of travel   
   protected double myPointDirection; //holds current direction the ship is pointing in degrees    
@@ -126,5 +141,14 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
       vertex(xRotatedTranslated, yRotatedTranslated);
     }
     endShape(CLOSE);
+  }
+}
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "AsteroidsGame" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
   }
 }
