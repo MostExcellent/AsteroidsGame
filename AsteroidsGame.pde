@@ -1,72 +1,62 @@
-SpaceShip spaceship = new SpaceShip();
+SpaceShip spaceship;
+Starfield starfield;
 public void setup() {
   size(500, 500);
+  spaceship = new SpaceShip();
+  starfield = new Starfield();
 }
 public void draw() {
+  background(0);
   spaceship.move();
   spaceship.show();
+  starfield.show();
+}
+public void keyPressed()
+{
+	if(keyCode == RIGHT)
+	{
+		spaceship.rotateRight();
+	}
+	if(keyCode == LEFT)
+	{
+		spaceship.rotateLeft();
+	}
 }
 class SpaceShip extends Floater {
   public SpaceShip() {
-    corners = 3;
-    xCorners[0] = 5; yCorners[0] = 0;
-    xCorners[1] = -3; yCorners[1] = -2;
-    xCorners[2] = -1; yCorners[2] = 0;
-    xCorners[3] = -3; yCorners[3] = 2;
-    myColor = color(255);
+    corners = 4;
+    xCorners = new int[corners];
+    yCorners = new int[corners];
+    xCorners[0] = -5; yCorners[0] = 5;
+    xCorners[1] = 0; yCorners[1] = 0;
+    xCorners[2] = -5; yCorners[2] = -5;
+    xCorners[3] = 15; yCorners[3] = 0;
+    myColor =  color(255);
     myCenterX = 250;
     myCenterY = 250;
     myDirectionX = 0;
     myDirectionY = 0;
-    myPointDirection;
+    myPointDirection = 0;
   }
-  public void setX(int x)
-  {
-    myCenterX = x;
-  }
-  public int getX()
-  {
-    return myCenterX;
-  }
-  public void setY(int y)
-  {
-    myCenterY = y;
-  }
-  public int getY()
-  {
-    return myCenterY;
-  }
-  public void setDirectionX(double x)
-  {
-    myDirectionX = x;
-  }
-  public double getDirectionX()
-  {
-    return myDirectionX;
-  }
-  public void setDirectionY(double y)
-  {
-    myDirectionY = y;
-  }
-  public double getDirectionY()
-  {
-    return myDirectionY;
-  }
-  public void setPointDirection(int degrees)
-  {
-    myPointDirection = degrees;
-  }
-  public double getPointDirection()
-  {
-    return myPointDirection;
-  }
+  public void setX(int x){myCenterX = x;}
+  public int getX(){return (int)myCenterX;}
+  public void setY(int y){myCenterY = y;}
+  public int getY(){return (int)myCenterY;}
+  public void setDirectionX(double x){myDirectionX = x;}
+  public double getDirectionX(){return myDirectionX;}
+  public void setDirectionY(double y){myDirectionY = y;}
+  public double getDirectionY(){return myDirectionY;}
+  public void setPointDirection(int degrees){myPointDirection = degrees;}
+  public double getPointDirection(){return myPointDirection;}
+  public void rotateRight(){myPointDirection+=4;}
+  public void rotateLeft(){myPointDirection-=4;}
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {
   protected int corners; //the number of corners, a triangular floater has 3   
   protected int[] xCorners;
   protected int[] yCorners;
-  protected color myColor;
+  protected int myColor;
   protected double myCenterX, myCenterY; //holds center coordinates   
   protected double myDirectionX, myDirectionY; //holds x and y coordinates of the vector for direction of travel   
   protected double myPointDirection; //holds current direction the ship is pointing in degrees    
@@ -89,14 +79,10 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     myDirectionX += ((dAmount) * Math.cos(dRadians));
     myDirectionY += ((dAmount) * Math.sin(dRadians));
   }
-  public void rotate(int nDegreesOfRotation) {
-    //rotates the floater by a given number of degrees    
-    myPointDirection += nDegreesOfRotation;
-  }
+  public void rotate(int nDegreesOfRotation) {myPointDirection += nDegreesOfRotation;}
   public void move() //move the floater in the current direction of travel
   {
-    //change the x and y coordinates by myDirectionX and myDirectionY       
-    myCenterX += myDirectionX;
+  	myCenterX += myDirectionX;
     myCenterY += myDirectionY;
 
     //wrap around screen    
@@ -127,4 +113,24 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     }
     endShape(CLOSE);
   }
+}
+public class Starfield {
+  private int[] x;
+  private int[] y;
+  public Starfield () {
+    x = new int[500];
+    y = new int[500];
+    for(int i = 0; i < 500; i++)
+    {
+      x[i] = (int)(Math.random()*500);
+      y[i] = (int)(Math.random()*500);
+    }
+  }
+  public void show()
+  {
+    for (int i = 0; i < x.length; i++) {
+      point(x[i], y[i]);
+    }
+  }
+
 }
