@@ -57,9 +57,9 @@ class SpaceShip extends Floater
 		corners = 4;
 		xCorners = new int[corners];
 		yCorners = new int[corners];
-		xCorners[0] = -5; yCorners[0] = 5;
-		xCorners[1] = 0; yCorners[1] = 0;
-		xCorners[2] = -5; yCorners[2] = -5;
+		xCorners[0] = -10; yCorners[0] = 10;
+		xCorners[1] = -5; yCorners[1] = 0;
+		xCorners[2] = -10; yCorners[2] = -10;
 		xCorners[3] = 15; yCorners[3] = 0;
 		myColor =  color(255);
 		myCenterX = 250;
@@ -78,8 +78,8 @@ class SpaceShip extends Floater
 	public double getDirectionY(){return myDirectionY;}
 	public void setPointDirection(int degrees){myPointDirection = degrees;}
 	public double getPointDirection(){return myPointDirection;}
-	public void rotateRight(){myPointDirection+=4;}
-	public void rotateLeft(){myPointDirection-=4;}
+	public void rotateRight(){myPointDirection+=6;}
+	public void rotateLeft(){myPointDirection-=6;}
 }
 class Asteroid extends Floater
 {
