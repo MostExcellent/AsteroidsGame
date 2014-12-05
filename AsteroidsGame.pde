@@ -1,9 +1,14 @@
 SpaceShip spaceship;
 Starfield starfield;
+boolean keys[];
 ArrayList<Asteroid> asteroids;
 public void setup()
 {
-	size(500, 500);
+	size(700, 700);
+	keys = new boolean[3];
+	keys[0]=false;
+  keys[1]=false;
+  keys[2]=false;
 	spaceship = new SpaceShip();
 	starfield = new Starfield();
 	asteroids = new ArrayList<Asteroid>();
@@ -21,17 +26,49 @@ public void draw()
 	for (int i = 0; i < asteroids.size(); i++) {
 		asteroids.get(i).move();
 		asteroids.get(i).show();
+		if(asteroids.get(i).getX() < spaceship.getX()+25 && asteroids.get(i).getX() > spaceship.getX()-25 && asteroids.get(i).getY() < spaceship.getY()+25 && asteroids.get(i).getY() > spaceship.getY()-25)
+		{
+			asteroids.remove(i);
+			asteroids.add(new Asteroid());
+		}
+	}
+	if(keys[0])
+	{
+		spaceship.rotateRight();
+	}
+	if(keys[1])
+	{
+		spaceship.rotateLeft();
 	}
 }
 public void keyPressed()
 {
 	if(keyCode == RIGHT)
 	{
-		spaceship.rotateRight();
+		keys[0] = true;
 	}
 	if(keyCode == LEFT)
 	{
-		spaceship.rotateLeft();
+		keys[1] = true;
+	}
+	if(keyCode == UP)
+	{
+		keys[2] = true;
+	}
+}
+public void keyReleased()
+{
+	if(keyCode == RIGHT)
+	{
+		keys[0] = false;
+	}
+	if(keyCode == LEFT)
+	{
+		keys[1] = false;
+	}
+	if(keyCode == UP)
+	{
+		keys[2] = false;
 	}
 }
 class SpaceShip extends Floater
@@ -46,8 +83,8 @@ class SpaceShip extends Floater
 		xCorners[2] = -10; yCorners[2] = -10;
 		xCorners[3] = 15; yCorners[3] = 0;
 		myColor =  color(255);
-		myCenterX = 250;
-		myCenterY = 250;
+		myCenterX = 350;
+		myCenterY = 350;
 		myDirectionX = 0;
 		myDirectionY = 0;
 		myPointDirection = 0;
@@ -64,6 +101,7 @@ class SpaceShip extends Floater
 	public double getPointDirection(){return myPointDirection;}
 	public void rotateRight(){myPointDirection+=6;}
 	public void rotateLeft(){myPointDirection-=6;}
+
 }
 class Asteroid extends Floater
 {
@@ -71,19 +109,20 @@ class Asteroid extends Floater
 	private int mySize;
 	public Asteroid()
 	{
+		mySize = 4;
 		rotationSpeed = (int)(Math.random()*8-4);
 		corners = 4;
 		xCorners = new int[corners];
 		yCorners = new int[corners];
-		xCorners[0] = -10; yCorners[0] = 10;
-		xCorners[1] = 10; yCorners[1] = 10;
-		xCorners[2] = 10; yCorners[2] = -10;
-		xCorners[3] = -10; yCorners[3] = -10;
+		xCorners[0] = -(int)(int)pow(2, mySize); yCorners[0] = (int)pow(2, mySize);
+		xCorners[1] = (int)pow(2, mySize); yCorners[1] = (int)pow(2, mySize);
+		xCorners[2] = (int)pow(2, mySize); yCorners[2] = -(int)pow(2, mySize);
+		xCorners[3] = -(int)pow(2, mySize); yCorners[3] = -(int)pow(2, mySize);
 		myColor =  color(255);
-		myCenterX = Math.random()*250;
-		myCenterY = Math.random()*250;
-		myDirectionX = Math.random()*6-3;
-		myDirectionY = Math.random()*6-3;
+		myCenterX = Math.random()*350;
+		myCenterY = Math.random()*350;
+		myDirectionX = Math.random()*4-2;
+		myDirectionY = Math.random()*4-2;
 		myPointDirection = Math.random()*359;
 	}
 	public void setX(int x){myCenterX = x;}
@@ -189,8 +228,8 @@ public class Starfield
 		y = new int[500];
 		for(int i = 0; i < 500; i++)
 		{
-			x[i] = (int)(Math.random()*500);
-			y[i] = (int)(Math.random()*500);
+			x[i] = (int)(Math.random()*700);
+			y[i] = (int)(Math.random()*700);
 		}
 	}
 	public void show()
