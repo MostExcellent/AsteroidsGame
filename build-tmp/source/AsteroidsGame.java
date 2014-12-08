@@ -48,44 +48,20 @@ public void draw()
 			asteroids.add(new Asteroid());
 		}
 	}
-	if(keys[0])
-	{
-		spaceship.rotateRight();
-	}
-	if(keys[1])
-	{
-		spaceship.rotateLeft();
-	}
+	if(keys[0]){spaceship.rotateRight();}
+	if(keys[1]){spaceship.rotateLeft();}
 }
 public void keyPressed()
 {
-	if(keyCode == RIGHT)
-	{
-		keys[0] = true;
-	}
-	if(keyCode == LEFT)
-	{
-		keys[1] = true;
-	}
-	if(keyCode == UP)
-	{
-		keys[2] = true;
-	}
+	if(keyCode == RIGHT){keys[0] = true;}
+	if(keyCode == LEFT){keys[1] = true;}
+	if(keyCode == UP){keys[2] = true;}
 }
 public void keyReleased()
 {
-	if(keyCode == RIGHT)
-	{
-		keys[0] = false;
-	}
-	if(keyCode == LEFT)
-	{
-		keys[1] = false;
-	}
-	if(keyCode == UP)
-	{
-		keys[2] = false;
-	}
+	if(keyCode == RIGHT){keys[0] = false;}
+	if(keyCode == LEFT){keys[1] = false;}
+	if(keyCode == UP){keys[2] = false;}
 }
 class SpaceShip extends Floater
 {
@@ -135,8 +111,8 @@ class Asteroid extends Floater
 		xCorners[2] = (int)pow(2, mySize); yCorners[2] = -(int)pow(2, mySize);
 		xCorners[3] = -(int)pow(2, mySize); yCorners[3] = -(int)pow(2, mySize);
 		myColor =  color(255);
-		myCenterX = Math.random()*350;
-		myCenterY = Math.random()*350;
+		myCenterX = Math.random()*700;
+		myCenterY = Math.random()*700;
 		myDirectionX = Math.random()*4-2;
 		myDirectionY = Math.random()*4-2;
 		myPointDirection = Math.random()*359;
