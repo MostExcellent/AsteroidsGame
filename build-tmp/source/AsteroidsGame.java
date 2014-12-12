@@ -21,10 +21,11 @@ ArrayList<Asteroid> asteroids;
 public void setup()
 {
 	size(700, 700);
-	keys = new boolean[3];
-	keys[0]=false;
-  keys[1]=false;
-  keys[2]=false;
+	keys = new boolean[4];
+	keys[0] = false;
+  keys[1] = false;
+  keys[2] = false;
+  keys[3] = false;
 	spaceship = new SpaceShip();
 	starfield = new Starfield();
 	asteroids = new ArrayList<Asteroid>();
@@ -50,6 +51,7 @@ public void draw()
 	}
 	if(keys[0]){spaceship.rotateRight();}
 	if(keys[1]){spaceship.rotateLeft();}
+	if(keys[2]){spaceship.accelerate(1);}
 }
 public void keyPressed()
 {
@@ -62,6 +64,7 @@ public void keyReleased()
 	if(keyCode == RIGHT){keys[0] = false;}
 	if(keyCode == LEFT){keys[1] = false;}
 	if(keyCode == UP){keys[2] = false;}
+	if(keyCode == 32){spaceship.hyperspace();}
 }
 class SpaceShip extends Floater
 {
@@ -93,7 +96,11 @@ class SpaceShip extends Floater
 	public double getPointDirection(){return myPointDirection;}
 	public void rotateRight(){myPointDirection+=6;}
 	public void rotateLeft(){myPointDirection-=6;}
-
+	public void hyperspace()
+	{
+		myCenterY = Math.random()*350;
+		myCenterX = Math.random()*350;
+	}
 }
 class Asteroid extends Floater
 {
