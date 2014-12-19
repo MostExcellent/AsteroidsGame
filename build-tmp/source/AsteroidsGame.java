@@ -19,9 +19,13 @@ Starfield starfield;
 boolean keys[];
 ArrayList<Asteroid> asteroids;
 ArrayList<Bullet> bullets;
+int points;
+int highScore;
 public void setup()
 {
 	size(700, 700);
+	textSize(32);
+	int points = 0;
 	keys = new boolean[4];
 	keys[0] = false;
   keys[1] = false;
@@ -52,7 +56,17 @@ public void draw()
 				asteroids.remove(i);
 				bullets.remove(n);
 				asteroids.add(new Asteroid());
+				points++;
 			}
+		}
+		if(spaceship.getX() < asteroids.get(i).getX()+25 && spaceship.getX() > asteroids.get(i).getX()-25 && spaceship.getY() < asteroids.get(i).getY()+25 && spaceship.getY() > asteroids.get(i).getY()-25)
+		{
+			asteroids.remove(i);
+			asteroids.add(new Asteroid());
+			spaceship.setDirectionX(0);
+			spaceship.setDirectionY(0);
+			spaceship.hyperspace();
+			points = 0;
 		}
 	}
 	for (int i = 0; i < bullets.size(); i++)
@@ -64,9 +78,12 @@ public void draw()
 				bullets.remove(i);
 			}
 	}
+	if(points > highScore){highScore = points;}
 	if(keys[0]){spaceship.rotateRight();}
 	if(keys[1]){spaceship.rotateLeft();}
-	if(keys[2]){spaceship.accelerate(0.1f);}
+	if(keys[2]){spaceship.accelerate(0.2f);}
+	fill(10, 240, 10);
+	text("Points: "+points+"\n"+"High Score: "+highScore, 20, 50);
 }
 public void keyPressed()
 {
@@ -198,7 +215,6 @@ class Bullet extends Floater
 		myCenterY = spaceship.getY();
 		myDirectionX = 5 * Math.cos(spaceship.getRads()) + spaceship.getDirectionX();
 		myDirectionY = 5 * Math.sin(spaceship.getRads()) + spaceship.getDirectionY();
-		System.out.println("Bullet X direction: "+myDirectionX+"\n"+"Bullet Y direction: "+myDirectionY);
 	}
 	public void setX(int x){myCenterX = x;}
 	public int getX(){return (int)myCenterX;}
